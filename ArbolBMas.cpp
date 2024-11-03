@@ -3,20 +3,59 @@
 #include <string>
 
 //AGREGAR: NODOS, RAIZ, AUTOBALANCEO
-
-
 NodoBMas* raiz;
+vector<string> columnas;
+int orden;
 
 
+void ArbolBMas::insertarAux(NodoBMas* nodo, const std::vector<std::string>& clave) {
+        if (nodo->esHoja()) {
+            // Insertar en un nodo hoja
+            nodo->claves.push_back(clave);
+            // Ordenar el vector de claves basado en el primer elemento del vector<string>
+            std::sort(nodo->claves.begin(), nodo->claves.end(),
+                      [](const std::vector<std::string>& a, const std::vector<std::string>& b) {
+                          return a[0] < b[0];
+                      });
+        } else {
+            // Encontrar el hijo adecuado
+            int i = nodo->claves.size() - 1;
+            while(i >= 0 && clave[0] < nodo->claves[i][0]) {
+                i--;
+            }
+            i++;
+            // Si el hijo está lleno, dividirlo
+            if(nodo->hijos[i]->claves.size() == orden - 1) {
+                dividir(nodo, i);
+                // Ajustar el índice si la clave es mayor que la clave promovida
+                if (clave[0] > nodo->claves[i][0]) {
+                    i++;
+                }
+            }
+            insertarAux(nodo->hijos[i], clave);
+        }
+    }
 
+    // Método para dividir un nodo lleno
+    void ArbolBMas::dividir(NodoBMas* padre, int indice) {
+        NodoBMas* lleno = padre->hijos[indice];
+        NodoBMas* nuevoHijo = new NodoBMas(lleno->esHoja());
+        int midIndex = orden / 2;
 
+        // Promover la clave del medio al padre
+        padre->claves.insert(padre->claves.begin() + indice, lleno->claves[midIndex]);
+        padre->hijos.insert(padre->hijos.begin() + indice + 1, nuevoHijo);
 
+        // Asignar claves al nuevo nodo
+        nuevoHijo->claves.assign(lleno->claves.begin() + midIndex + 1, lleno->claves.end());
+        lleno->claves.resize(midIndex);
 
-void ArbolBMas::insertarAux(const NodoBMas* nuevoNodo){
-
-
-
-}
+        // Asignar hijos si no es un nodo hoja
+        if (!lleno->esHoja()) {
+            nuevoHijo->hijos.assign(lleno->hijos.begin() + midIndex + 1, lleno->hijos.end());
+            lleno->hijos.resize(midIndex + 1);
+        }
+    }
 
 // Implementación del método insertar
 // Muestra en la consola el comando simulado de inserción con columnas y valores dados
@@ -35,9 +74,14 @@ void ArbolBMas::insertar(const std::string& tabla, const std::vector<std::string
     }
     std::cout << ")\n";
 
-    NodoBMas* nuevoNodo = new NodoBMas(valores); //Pasar datos por el constructor
+    if (raiz->claves.size() == orden - 1) {
+            NodoBMas* nuevaRaiz = new NodoBMas(false);
+            nuevaRaiz->hijos.push_back(raiz);
+            dividir(nuevaRaiz, 0);
+            raiz = nuevaRaiz;
+        }
 
-    insertarAux(nuevoNodo);
+        insertarAux(raiz, valores);
 
 }
 

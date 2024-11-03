@@ -26,7 +26,10 @@ public:
     // Recibe el nombre de la tabla y una condición para eliminar filas que la cumplan
     void eliminar(const std::string& tabla, const std::string& condicion);
 
-    void insertarAux(const NodoBMas& nodoActual);
+    void insertarAux(NodoBMas* nodo, const std::vector<std::string>& clave);
+
+    void dividir(NodoBMas* padre, int indice);
+
 };
 
 #endif

@@ -1,18 +1,25 @@
-
+#ifndef NODO_BMAS_H
+#define NODO_BMAS_H
 
 #include <vector>
-#include <memory> // Para std::shared_ptr
+#include <algorithm> // Para std::sort
+#include <string>
+
+using namespace std;
 
 class NodoBMas {
-
+    
 public:
-    std::vector<int> claves;                         // Claves almacenadas en el nodo
-    std::vector<std::shared_ptr<NodoBMas>> hijos;    // Punteros a nodos hijos
-    std::shared_ptr<NodoBMas> siguiente;             // Puntero al siguiente nodo (para nodos hoja)
-    static int maxClaves;                                   // Máximo número de claves permitido en el nodo
+    vector<vector<string>> claves;               // Claves almacenadas en el nodo
+    vector<NodoBMas*> hijos;          // Punteros a nodos hijos
+    NodoBMas* siguiente;                   // Puntero al siguiente nodo (para nodos hoja)
+    int maxClaves;                         // Máximo número de claves permitido en el nodo
 
     // Constructor que inicializa el nodo con el número máximo de claves permitido
-    NodoBMas(const std::vector<std::string>& valores);
+    NodoBMas(int maxClaves);
+
+    // Destructor para liberar la memoria de los nodos hijos
+    ~NodoBMas();
 
     // Verifica si el nodo es una hoja (no tiene hijos)
     bool esHoja() const;
@@ -21,14 +28,16 @@ public:
     bool estaLleno() const;
 
     // Agrega una clave al nodo (método auxiliar)
-    void agregarClave(int clave);
+    void agregarClave(vector<vector<string>> clave);
 
     // Obtiene las claves almacenadas en el nodo
-    const std::vector<int>& obtenerClaves() const;
+    const vector<vector<string>>& obtenerClaves() const;
 
     // Configura el puntero al siguiente nodo
-    void setSiguiente(const std::shared_ptr<NodoBMas>& nodo);
+    void setSiguiente(NodoBMas* nodo);
 
     // Obtiene el puntero al siguiente nodo
-    std::shared_ptr<NodoBMas> getSiguiente() const;
+    NodoBMas* getSiguiente() const;
 };
+
+#endif 
