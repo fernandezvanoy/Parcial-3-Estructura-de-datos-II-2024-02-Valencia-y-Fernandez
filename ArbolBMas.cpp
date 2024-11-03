@@ -1,4 +1,22 @@
 #include "ArbolBMas.h"
+#include "NodoBMas.h"
+#include <string>
+
+//AGREGAR: NODOS, RAIZ, AUTOBALANCEO
+
+
+NodoBMas* raiz;
+
+
+
+
+
+
+void ArbolBMas::insertarAux(const NodoBMas* nuevoNodo){
+
+
+
+}
 
 // Implementación del método insertar
 // Muestra en la consola el comando simulado de inserción con columnas y valores dados
@@ -16,6 +34,11 @@ void ArbolBMas::insertar(const std::string& tabla, const std::vector<std::string
         if (i < valores.size() - 1) std::cout << ", ";
     }
     std::cout << ")\n";
+
+    NodoBMas* nuevoNodo = new NodoBMas(valores); //Pasar datos por el constructor
+
+    insertarAux(nuevoNodo);
+
 }
 
 // Implementación del método seleccionar

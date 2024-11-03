@@ -5,6 +5,7 @@
 #include <vector>    // Biblioteca para manejar listas de elementos (std::vector)
 #include <map>       // Biblioteca para manejar pares clave-valor (std::map)
 #include <iostream>  // Biblioteca para operaciones de entrada y salida (std::cout)
+#include "NodoBMas.h"
 
 // Clase ArbolBPlus simula un árbol B+ con métodos básicos para las operaciones de SQL.
 class ArbolBMas {
@@ -24,6 +25,8 @@ public:
     // Método para simular la eliminación de datos en el árbol B+
     // Recibe el nombre de la tabla y una condición para eliminar filas que la cumplan
     void eliminar(const std::string& tabla, const std::string& condicion);
+
+    void insertarAux(const NodoBMas& nodoActual);
 };
 
 #endif
