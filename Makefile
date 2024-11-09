@@ -5,10 +5,10 @@ CXX = g++
 CXXFLAGS = -std=c++11 -Wall
 
 # Archivos fuente
-SRCS = main.cpp ArbolBMas.cpp AnalizadorSQL.cpp NodoBMas.cpp
+SRCS = main.cpp ArbolBMas.cpp NodoBMas.cpp
 
 # Archivos de encabezado
-HEADERS = ArbolBMas.h AnalizadorSQL.h NodoBMas.h
+HEADERS = ArbolBMas.h NodoBMas.h
 
 # Nombre del ejecutable
 TARGET = sql_cli
