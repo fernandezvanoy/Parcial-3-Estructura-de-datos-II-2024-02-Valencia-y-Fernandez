@@ -2,7 +2,7 @@
 
 // Constructor de la clase ArbolBMas
 // Inicializa la raiz, el grado minimo, el grado maximo y las columnas para el arbol
-ArbolBMas::ArbolBMas(int orden, vector<string> columnas) : raiz(new NodoBMas(true)), gradoMinimo(orden / 2), orden(orden), gradoMaximo(orden - 1), columnas(columnas) {}
+ArbolBMas::ArbolBMas(int orden, string nombreArbol, vector<string> columnas) : raiz(new NodoBMas(true)), gradoMinimo(orden / 2), orden(orden), gradoMaximo(orden - 1), columnas(columnas), nombreArbol(nombreArbol) {}
 
 // Metodo para insertar una clave en el arbol
 void ArbolBMas::insertar(const std::string &tabla, const std::vector<std::string> &columnas, const std::vector<std::string> &valores)
@@ -112,6 +112,14 @@ void ArbolBMas::dividir(NodoBMas *padre, int indice)
 // Metodo para eliminar una clave del arbol
 void ArbolBMas::eliminar(const vector<string> &clave)
 {
+    std::cout << "Ejecutando: ELIMINAR (";
+
+    for(int i = 0; i < clave.size(); i++){
+        cout << clave[i] << " ";
+    }
+
+    cout << ")" << endl;
+
     eliminarDeNodo(raiz, clave);
     // Si la raiz queda vacia, ajusta la raiz
     if (!raiz->esHoja && raiz->claves.empty())
@@ -294,6 +302,28 @@ void ArbolBMas::redistribuirDerecha(NodoBMas *nodo, int indice)
 
 void ArbolBMas::actualizar(const vector<string> &claveBuscada, const vector<string> &nuevaClave)
 {
+
+    cout << "UPDATE " << nombreArbol<< " SET {";
+
+    for(int i = 0; i < nuevaClave.size(); i++){
+
+        cout << nuevaClave[i] << ", "; 
+
+    }
+
+    cout << "}";
+
+    cout << "WHERE {";
+    
+    for(int i = 0; i < claveBuscada.size(); i++){
+
+        cout << claveBuscada[i] << ", "; 
+
+    }
+
+    cout << "}";
+    cout << endl;
+
     // Llama a la funcion auxiliar para buscar y actualizar la clave
     actualizarAux(raiz, claveBuscada, nuevaClave);
 }
@@ -341,6 +371,12 @@ void ArbolBMas::actualizarAux(NodoBMas *nodo, const vector<string> &claveBuscada
 
 void ArbolBMas::seleccionar(const vector<string> &camposBuscados)
 {
+    cout << "Ejecutando: SELECCIONAR (";
+        for(string columna : camposBuscados){
+            cout << columna << ",";
+        }
+        cout << ") FROM " << nombreArbol << endl;
+
     // Llama a la funcion auxiliar para realizar la seleccion de campos
     vector<int> numeroCampo;
 

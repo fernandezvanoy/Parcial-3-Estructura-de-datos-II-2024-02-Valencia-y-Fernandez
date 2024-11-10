@@ -5,7 +5,7 @@
 int main() {
 
     vector<string> columnas = {"Nombre", "Edad"};
-    ArbolBMas arbol(5, columnas);
+    ArbolBMas arbol(5, "Clientes", columnas);
     
     arbol.insertar("usuarios", {"nombre", "edad"}, {"Alice", "30"});
     cout << "Estado del árbol B+: " << endl;
@@ -61,6 +61,8 @@ int main() {
     cout << "Estado del árbol B+: " << endl;
     arbol.imprimirArbol(arbol.raiz);
     
+    cout << "Estado del árbol B+: " << endl;
+    arbol.imprimirArbol(arbol.raiz);
     
 
     vector<string> clave = {"Bob" , "35"}; //clave a eliminar
@@ -85,6 +87,24 @@ int main() {
     vector<string> camposBuscados = {"Nombre", "Edad"};
 
     arbol.seleccionar(camposBuscados);
+
+    vector<string> columnas2 = {"Nombre", "Edad", "Salario"};
+
+    ArbolBMas empleados(5, "Empleados", columnas2);
+
+    empleados.insertar("usuarios", {"nombre", "edad", "salario"}, {"Camilo", "52", "4000000"});
+
+    empleados.insertar("usuarios", {"nombre", "edad", "salario"}, {"Ana", "52", "900000"});
+
+    empleados.insertar("usuarios", {"nombre", "edad", "salario"}, {"Bob", "52", "6000000"});
+
+    empleados.insertar("usuarios", {"nombre", "edad", "salario"}, {"Carlos", "52", "200000"});
+
+    empleados.seleccionar({"Nombre", "Salario"});
+
+    empleados.imprimirArbol(empleados.raiz);
+
+    
 
     return 0;
 }

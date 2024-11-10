@@ -16,9 +16,10 @@ public:
     int gradoMinimo;
     int gradoMaximo;
     vector<string> columnas;
+    string nombreArbol;
 
     //Constructor clase ArbolBMas
-    ArbolBMas(int orden, vector<string> columnas);
+    ArbolBMas(int orden, string nombreArbol, vector<string> columnas);
 
     // Método para simular la inserción en el árbol B+ y sus funciones auxiliares
     void insertar(const std::string &tabla, const std::vector<std::string> &columnas, const std::vector<std::string> &valores);
